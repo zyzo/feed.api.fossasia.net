@@ -7,7 +7,7 @@ if ( ! empty($_GET["category"]) ) {
 	$category = "blog";
 }
 
-$communities = "http://api.fossasia.net/ffGeoJson.json";
+$communities = "http://cmap-fossasia-api.herokuapp.com/ffGeoJson.json";
 
 //load combined api file
 $api = file_get_contents($communities);
