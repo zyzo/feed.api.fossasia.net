@@ -1,43 +1,51 @@
-Anwendungen
+FOSSASIA Feed Merger
 ===========
+RSS blog feed merger for FOSSASIA API communities
 
-Freifunk Community Map
-----------------------
+[![Join the chat at https://gitter.im/fossasia/api.fossasia.net](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/fossasia/api.fossasia.net?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-Ein Beispiel gibt es hier: http://weimarnetz.de/ffmap/map.html
+## Setup
 
-Freifunk Community Feed Merger
-------------------------------
+* Clone the repo :
 
-Blogfeeds werden hier zusammengefast: http://weimarnetz.de/fffeed/feed.php
+	```sh
+	git clone https://github.com/fossasia/feed.api.fossasia.net.git
+	cd feed.api.fossasia.net
+	```
 
+* Create `config.json` from `config.json.sample`, and modify it as you need.
 
-Entstehung
-==========
+	```sh
+	cp config.json.sample config.json
+	```
 
-Zum Wireless Community Weekend 2013 in Berlin fand ein ersten Treffen
-zum Relaunch unserer Website freifunk.net statt. Dabei kam auch die
-Frage auf, wie man die einzelnen Freifunkcommunities am besten
-präsentieren kann, ohne alle Daten zentral zu erfassen und zudem den
-Communities eine einfache Möglichkeit zu bieten, eigene Daten selbst
-aktuell zu halten.
+* Create a `cache` folder to store cached feeds
 
-In Anlehnung an die Hackerspaces API (http://hackerspaces.nl/spaceapi/)
-wurde die Idee einer Freifunk API geboren: Jede Community stellt ihre
-Daten in einem definierten Format an einer ihr zugänglichen Stelle
-(Webspace, Wiki, Webserver) bereit und trägt sich in das Verzeichnis
-ein. Das Verzeichnis besteht lediglich aus einer Zuordnung von
-Communitynamen und URL zu den den bereitgestellten Daten. Die erste
-Anwendung soll eine Karte mit darin angezeigten Freifunkcommunities
-sein, um Besuchern und Interessierten einen Überblick zu geben und
-lokale Ansprechpartner zu vermitteln.
+* Run `feed.php` (or access it from a php web server)
 
-Die Freifunk API soll die Metadaten der Communities dezentral sammeln und anderen Nutzern zur Verfügung stellen. Die API ist nicht zu verwechseln mit einer Datenbank für Freifunkknoten oder als Verzeichnis von Firmwareeintellungen einzelner Communities.
+	```sh
+	php feed.php
+	```
 
-Weitere Informationen zur API sind in einem Blogartikel unter http://blog.freifunk.net/2013/die-neue-freifunk-api-aufruf-zum-mitmachen zusammengefasst.
+## How to use
 
-History
-=======
+From a web browser or a terminal, call `feed.php`, with these parameters : 
+
+* `source` : shortname of the community to get feeds from. Set `source` to `all` to get feeds from all communities.
+
+ You can find a community shortname here (keys) : https://github.com/fossasia/directory.api.fossasia.net/blob/master/directory.json
+* `limit` : maximum number of results. Default to `1`.
+
+* `category` : type of feed (blog, podcast, ics, ..). Default to `blog`.
+
+## How it works
+
+Information about communities feeds is read from `ffGeoJson.json`. This service retrieves blog feeds from provided links, sort by publication, send back to users as rss feed and cache them in folder `cache` at project's directory root.
+
+## History
+
+Our goal is to collect information about Open Source Communities and Hackspaces all over Asia. This information will be used to aggregate contact data, locations, news feeds and events.
+We adopted this API from the Hackerspaces and Freifunk API, invented years before to collect decentralized data.
 
 At the Wireless Community Weekend 2013 in Berlin there was a first meeting to relaunch freifunk.net. To represent local communities without collecting and storing data centrally, a way had to be found. Another requirement was to enable local communities to keep their data up to date easily.
 
@@ -45,4 +53,13 @@ Based on the Hackerspaces API (http://hackerspaces.nl/spaceapi/) the idea of the
 
 The freifunk API is designed to collect metadata of communities in a decentral way and make it available to other users. It's not designated to be a freifunk node database or a directory of individual community firmware settings.
 
+[FOSSASIA API repo](https://github.com/fossasia/api.fossasia.net)
 
+## Contribute
+
+Issues & Pull Requests are highly appreciated. Check out our issues for contribution opportunities.
+
+## Requirements
+
+* `ffGeoJson.json`
+* PHP >= 5.4
